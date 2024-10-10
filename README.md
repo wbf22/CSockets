@@ -18,13 +18,17 @@ Here's an example using our UDP client and server
 ```c++
 #include 'UDPSocket.hpp'
 #include 'WindowsInit.hpp'
+#include <string>
+#include <iostream>
 
 using namespace std;
+
+string SHRUG = "¯\\_(ツ)_/¯";
 
 void thread_func() {
 
     UDPSocket client = UDPSocket(1000, 8081);
-    client.send(Data::SHRUG, "127.0.0.1", 8080);
+    client.send(SHRUG, "127.0.0.1", 8080);
 
 }
 
@@ -68,9 +72,12 @@ And here's an example of using our TCP client and server
 
 #include 'TCPSocket.hpp'
 #include 'WindowsInit.hpp'
+#include <string>
+#include <iostream>
 
 using namespace std;
 
+string SHRUG = "¯\\_(ツ)_/¯";
 
 void thread_func() {
 
@@ -82,7 +89,7 @@ void thread_func() {
 
         client.connect("127.0.0.1", 8080);
         
-        const char* msg = Data::SHRUG;
+        const char* msg = SHRUG;
         client.send(client.socket_num, msg, strlen(msg));
 
         char buffer[1024];
@@ -122,7 +129,7 @@ int main() {
         cout << "Port: " << ntohs(client.sin_port) << endl; // Convert network byte order to host byte order
 
         // send message
-        const char* msg = "Hello from server";
+        const char* msg = SHRUG;
         server.send(clientSocket, msg, strlen(msg)); // Send data
     } catch (const runtime_error& e) {
         cerr << "Exception: " << e.what() << endl;
